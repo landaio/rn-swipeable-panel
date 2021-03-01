@@ -37,6 +37,7 @@ type SwipeablePanelProps = {
   onlyLarge?: boolean;
   onlySmall?: boolean;
   openLarge?: boolean;
+  noHighlight?: boolean;
   noBar?: boolean;
   barStyle?: object;
   allowTouchOutside?: boolean;
@@ -261,7 +262,7 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
             contentContainerStyle={SwipeablePanelStyles.scrollViewContentContainerStyle}
             {...this.props.scrollViewProps}
           >
-            {this.state.canScroll ? (
+            {(this.state.canScroll && !this.props.noHighlight) ? (
               <TouchableHighlight>
                 <React.Fragment>{this.props.children}</React.Fragment>
               </TouchableHighlight>
