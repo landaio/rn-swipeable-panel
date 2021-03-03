@@ -42,6 +42,7 @@ type SwipeablePanelProps = {
   barStyle?: object;
   allowTouchOutside?: boolean;
   scrollViewProps?: ScrollViewProps;
+  componentBelowLine?: any;
 };
 
 type MaybeAnimated<T> = T | Animated.Value;
@@ -248,7 +249,7 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
           ]}
           {...this._panResponder.panHandlers}
         >
-          {!this.props.noBar && <Bar barStyle={barStyle} />}
+          {!this.props.noBar && <><Bar barStyle={barStyle} />{componentBelowLine}</>}
           {this.props.showCloseButton && (
             <Close rootStyle={closeRootStyle} iconStyle={closeIconStyle} onPress={this.props.onClose} />
           )}
