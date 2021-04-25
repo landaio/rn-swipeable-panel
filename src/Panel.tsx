@@ -41,6 +41,7 @@ type SwipeablePanelProps = {
   noBar?: boolean;
   barStyle?: object;
   allowTouchOutside?: boolean;
+  withScrollView? : boolean;
   scrollViewProps?: ScrollViewProps;
   componentBelowLine?: any;
 };
@@ -210,7 +211,10 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
       onClose,
       allowTouchOutside,
       closeOnTouchOutside,
+      withScrollView = true
     } = this.props;
+
+    const DynamicComponent = withScrollView ? ScrollView : View;
 
     return showComponent ? (
       <Animated.View
@@ -247,13 +251,14 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
             { transform: this.state.pan.getTranslateTransform() },
             style,
           ]}
-          {...this._panResponder.panHandlers}
         >
-          {!this.props.noBar && <><Bar barStyle={barStyle} />{this.props.componentBelowLine}</>}
-          {this.props.showCloseButton && (
-            <Close rootStyle={closeRootStyle} iconStyle={closeIconStyle} onPress={this.props.onClose} />
-          )}
-          <ScrollView
+          <Animated.View {...this._panResponder.panHandlers} style={{backgroundColor: 'white'}}>
+            {!this.props.noBar && <><Bar barStyle={barStyle} />{this.props.componentBelowLine}</>}
+            {this.props.showCloseButton && (
+              <Close rootStyle={closeRootStyle} iconStyle={closeIconStyle} onPress={this.props.onClose} />
+            )}
+          </Animated.View>
+          <DynamicComponent
             onTouchStart={() => {
               return false;
             }}
@@ -263,14 +268,8 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
             contentContainerStyle={SwipeablePanelStyles.scrollViewContentContainerStyle}
             {...this.props.scrollViewProps}
           >
-            {(this.state.canScroll && !this.props.noHighlight) ? (
-              <TouchableHighlight>
-                <React.Fragment>{this.props.children}</React.Fragment>
-              </TouchableHighlight>
-            ) : (
-              this.props.children
-            )}
-          </ScrollView>
+            {this.props.children}
+          </DynamicComponent>
         </Animated.View>
       </Animated.View>
     ) : null;
