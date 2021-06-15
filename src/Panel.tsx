@@ -45,6 +45,7 @@ type SwipeablePanelProps = {
   scrollViewProps?: ScrollViewProps;
   componentBelowLine?: any;
   backgroundHeight?: number;
+  onLayout?: any;
 };
 
 type MaybeAnimated<T> = T | Animated.Value;
@@ -213,6 +214,7 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
       allowTouchOutside,
       closeOnTouchOutside,
       backgroundHeight,
+      onLayout,
       withScrollView = true
     } = this.props;
 
@@ -244,6 +246,7 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
           </TouchableWithoutFeedback>
         )}
         <Animated.View
+          onLayout={onLayout}
           style={[
             SwipeablePanelStyles.panel,
             {
