@@ -44,6 +44,7 @@ type SwipeablePanelProps = {
   withScrollView? : boolean;
   scrollViewProps?: ScrollViewProps;
   componentBelowLine?: any;
+  backgroundHeight?: number;
 };
 
 type MaybeAnimated<T> = T | Animated.Value;
@@ -211,6 +212,7 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
       onClose,
       allowTouchOutside,
       closeOnTouchOutside,
+      backgroundHeight,
       withScrollView = true
     } = this.props;
 
@@ -222,7 +224,7 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
           SwipeablePanelStyles.background,
           {
             backgroundColor: noBackgroundOpacity ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,0.5)',
-            height: allowTouchOutside ? 'auto' : deviceHeight,
+            height: backgroundHeight || (allowTouchOutside ? 'auto' : deviceHeight),
             width: deviceWidth,
           },
         ]}
@@ -235,7 +237,7 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
                 {
                   width: deviceWidth,
                   backgroundColor: 'rgba(0,0,0,0)',
-                  height: allowTouchOutside ? 'auto' : deviceHeight,
+                  height: backgroundHeight || (allowTouchOutside ? 'auto' : deviceHeight),
                 },
               ]}
             />
