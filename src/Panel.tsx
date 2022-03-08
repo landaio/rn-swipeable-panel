@@ -257,7 +257,7 @@ class SwipeablePanel extends Component<SwipeablePanelProps, SwipeablePanelState>
             style,
           ]}
         >
-          <Animated.View {...this._panResponder.panHandlers} style={{backgroundColor: 'white'}}>
+          <Animated.View {...this._panResponder.panHandlers}>
             {!this.props.noBar && <><Bar barStyle={barStyle} />{this.props.componentBelowLine}</>}
             {this.props.showCloseButton && (
               <Close rootStyle={closeRootStyle} iconStyle={closeIconStyle} onPress={this.props.onClose} />
